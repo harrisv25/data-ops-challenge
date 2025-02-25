@@ -1,12 +1,13 @@
 name: On push - Run test suite
 on:
+    push:
     pull_request_target:
-        types: [ synchronize ]
+        types: [ opened, reopened, synchronize ]
 
 jobs:
     test-challange:
         name: Test pipeline
-        runs-on: ubuntu-20.04 # this version will effect the version of some software such as the AWS CLI
+        runs-on: ubuntu-20.04
         steps:
         - uses: actions/checkout@v4
 
@@ -46,12 +47,11 @@ jobs:
             fi
 
         - name: run
-          working-directory: ./ng
           run: |
             export BUILD_DIR=$PWD/build
             mkdir -p $BUILD_DIR/
 
-            nix build develop --profile ./build/on-push-$(date +'%Y-%m-%d_%H-%M-%S') --no-sandbox
+            nix build --profile ./build/on-push-$(date +'%Y-%m-%d_%H-%M-%S') --no-sandbox
 
             find /nix/var/nix/gcroots | xargs ls -l
 

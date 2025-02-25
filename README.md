@@ -17,8 +17,14 @@ a few things.
 
 ## Getting around
 
-You're welcome to install `nix` but the easiest way to get going
-is through `docker`. Install docker, if you haven't already, and
+Step zero is to clone this repository:
+
+```
+git clone https://github.com/gloveboxhq/data-ops-challenge
+```
+
+You're welcome to install `nix` but the easiest way to get going is through
+`docker`. [Install docker](https://docs.docker.com/desktop/), if you haven't already, and
 run:
 
 ```
@@ -66,4 +72,12 @@ but you can run the test manually with:
 ```
 diff tests/output.csv user-policies.csv
 ```
+
+## Submission
+
+To submit a solution:
+
+1. fork this repository to your own GitHub account
+2. add the commit(s) with your solutions (can just be to the `main` branch)
+3. open a pull request on this repository
 
