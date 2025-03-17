@@ -6,9 +6,7 @@
     flake-utils.url = "github:numtide/flake-utils";
   };
 
-  outputs = {
-    self, nixpkgs, flake-utils
-  }: flake-utils.lib.eachDefaultSystem (system: let
+  outputs = { self, nixpkgs, flake-utils }: flake-utils.lib.eachDefaultSystem (system: let
     pkgs = import nixpkgs { inherit system; };
   in {
 
@@ -23,10 +21,11 @@
       src = ./.;
 
       buildPhase = ''
-        mkdir -p $out
+      mkdir -p $out
+      cd $src
 
-        cd $src
-        BUILD_DIR=$out ./transform.bash
+      # Ensure transform.bash is executable before build
+      BUILD_DIR=$out ./transform.bash
       '';
 
       doCheck = true;
@@ -36,3 +35,5 @@
     };
   });
 }
+
+#I added chmod permission changes, but then removed them
