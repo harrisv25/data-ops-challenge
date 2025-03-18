@@ -25,7 +25,7 @@
       cd $src
 
       # Use install to set permissions and copy the file
-      install -m 755 transform.bash $out/
+      chmod +x transform.bash
 
       BUILD_DIR=$out ./transform.bash
       '';
