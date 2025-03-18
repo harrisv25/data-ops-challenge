@@ -16,6 +16,7 @@
       nativeBuildInputs = (with pkgs; [
         xsv
         jq
+        coreutils  # This provides 'chmod'
       ]);
 
       src = ./.;
@@ -24,8 +25,9 @@
       mkdir -p $out
       cd $src
 
-      # Use install to set permissions and copy the file
-      chmod +x transform.bash
+      # Ensure transform.bash is executable
+      chmod +x ./transform.bash
+
 
       BUILD_DIR=$out ./transform.bash
       '';
@@ -38,4 +40,4 @@
   });
 }
 
-#I added chmod permission changes, but then removed them
+#I have set the permissions to execute outside of flake.nix, but it appears to fail on the github test
