@@ -16,7 +16,6 @@
       nativeBuildInputs = (with pkgs; [
         xsv
         jq
-        coreutils  # This provides 'chmod'
       ]);
 
       src = ./.;
@@ -24,10 +23,6 @@
       buildPhase = ''
       mkdir -p $out
       cd $src
-
-      # Ensure transform.bash is executable
-      chmod +x ./transform.bash
-
 
       BUILD_DIR=$out ./transform.bash
       '';
