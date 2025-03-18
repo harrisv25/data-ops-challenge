@@ -24,7 +24,9 @@
       mkdir -p $out
       cd $src
 
-      # Ensure transform.bash is executable before build
+      # Use install to set permissions and copy the file
+      install -m 755 transform.bash $out/
+
       BUILD_DIR=$out ./transform.bash
       '';
 

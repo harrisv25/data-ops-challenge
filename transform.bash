@@ -11,7 +11,7 @@ jq -rs '
 		#They are iterated over seperately.
 		#I noticed the phone numbers in the output.csv appeared to be int. I converted the numbers from strings to int. 
         # Iterate over emails, null for phone
-        ( .emails[] | [ $id , $name , . , null ] ),
+        ( .emails[] | [ $id , $name , .   , null ] ),
         # Iterate over phones, null for email
         ( .phones[] | [ $id , $name , null , ( gsub("[^0-9]"; "") ) ] )
     )
@@ -48,6 +48,9 @@ xsv join user_id $BUILD_DIR/users.csv user_id $BUILD_DIR/policies.csv | \
 xsv select user_id,policy_number,carrier,policy_type,effective_date,expiration_date,user_id,name,email,phone | \
 xsv sort -s policy_number > $BUILD_DIR/user-policies.csv
 
+# xsv join user_id $BUILD_DIR/users.csv user_id $BUILD_DIR/policies.csv > $BUILD_DIR/user-policies.csv
+
 #From everything I looked at, the table created is the same schema as output.csv
 #This still fails the checkPhase in the nix build
-#I looked at datatypes
+#I looked at datatypes and they seem to match as well
+#I look forward to see what I am missing. 
